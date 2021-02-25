@@ -6,12 +6,11 @@ using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
-using test1;
 
-namespace test1
+namespace WebtestAddressbook
 {
     [TestFixture]
-    public class CreateGroup
+    public class NewContact
     {
         private IWebDriver driver;
         private StringBuilder verificationErrors;
@@ -22,7 +21,7 @@ namespace test1
         public void SetupTest()
         {
             driver = new FirefoxDriver();
-            baseURL = "http://localhost/addressbook";
+            baseURL = "http://localhost/addressbook/";
             verificationErrors = new StringBuilder();
         }
 
@@ -41,62 +40,50 @@ namespace test1
         }
 
         [Test]
-        public void CreateGroups()
+        public void NewContacts()
         {
             OpenHomePage();
-            Login(new AccountData("admin","secret"));
-            GoToGroupsPage();
-            InitGroupPage();
-            GroupData group = new GroupData("aa");
-            group.Header = "bb";
-            group.Footer = "cc";
-            FillGroupForm(group);
+            Login();
+            GoToAddNew();
+            ContactData contact = new ContactData("John1");
+            contact.Lastname = "Doe1";
+            FillContactForm(contact);
             Submit();
-            ReturnToGroupPage();
-
+            GoToHomePage();
         }
 
-        private void ReturnToGroupPage()
+        private void GoToHomePage()
         {
-            driver.FindElement(By.LinkText("group page")).Click();
+            driver.FindElement(By.LinkText("home page")).Click();
         }
 
         private void Submit()
         {
-            driver.FindElement(By.Name("submit")).Click();
+            driver.FindElement(By.XPath("(//input[@name='submit'])[2]")).Click();
         }
 
-        private void FillGroupForm(GroupData group)
+        private void FillContactForm(ContactData contact)
         {
-            driver.FindElement(By.Name("group_name")).Click();
-            driver.FindElement(By.Name("group_name")).Clear();
-            driver.FindElement(By.Name("group_name")).SendKeys(group.Name);
-            driver.FindElement(By.Name("group_header")).Click();
-            driver.FindElement(By.Name("group_header")).Clear();
-            driver.FindElement(By.Name("group_header")).SendKeys(group.Header);
-            driver.FindElement(By.Name("group_footer")).Click();
-            driver.FindElement(By.Name("group_footer")).Clear();
-            driver.FindElement(By.Name("group_footer")).SendKeys(group.Footer);
-            driver.FindElement(By.XPath("//form[@action='/addressbook/group.php']")).Click();
+            driver.FindElement(By.Name("firstname")).Click();
+            driver.FindElement(By.Name("firstname")).Clear();
+            driver.FindElement(By.Name("firstname")).SendKeys(contact.Firstname);
+            driver.FindElement(By.Name("lastname")).Click();
+            driver.FindElement(By.Name("lastname")).Clear();
+            driver.FindElement(By.Name("lastname")).SendKeys(contact.Lastname);
         }
 
-        private void InitGroupPage()
+        private void GoToAddNew()
         {
-            driver.FindElement(By.Name("new")).Click();
+            driver.FindElement(By.LinkText("add new")).Click();
         }
 
-        private void GoToGroupsPage()
-        {
-            driver.FindElement(By.LinkText("groups")).Click();
-        }
-
-        private void Login(AccountData account)
+        private void Login()
         {
             driver.FindElement(By.Name("user")).Clear();
-            driver.FindElement(By.Name("user")).SendKeys(account.Username);
+            driver.FindElement(By.Name("user")).SendKeys("admin");
             driver.FindElement(By.Name("pass")).Click();
             driver.FindElement(By.Name("pass")).Clear();
-            driver.FindElement(By.Name("pass")).SendKeys(account.Password);
+            driver.FindElement(By.Name("pass")).SendKeys("secret");
             driver.FindElement(By.Id("LoginForm")).Click();
             driver.FindElement(By.XPath("//input[@value='Login']")).Click();
         }
