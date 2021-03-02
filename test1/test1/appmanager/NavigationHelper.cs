@@ -15,12 +15,14 @@ namespace WebtestAddressbook
      
         private string baseURL;
 
-        public NavigationHelper(IWebDriver driver, string baseURL) : base(driver)
+        public NavigationHelper(ApplicationManager manager, string baseURL) : base(manager)
         {
           this.baseURL = baseURL;
         }
 
-            public void OpenHomePage()
+     
+
+        public void OpenHomePage()
         {
             driver.Navigate().GoToUrl(baseURL);
         }

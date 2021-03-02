@@ -17,17 +17,21 @@ namespace WebtestAddressbook
         [Test]
         public void NewGroups()
         {
-            app.Navigator.OpenHomePage();
-            app.Auth.Login(new AccountData("admin","secret"));
-            app.Navigator.GoToGroupsPage();
-            app.Groups.InitGroupPage();
             GroupData group = new GroupData("aa");
             group.Header = "bb";
             group.Footer = "cc";
-            app.Groups.FillGroupForm(group);
-            app.Groups.SubmitGroupCreation();
-            app.Navigator.ReturnToGroupPage();
-        } 
-       
+                       
+            app.Groups.CreateGroup(group);
+        }
+        [Test]
+        public void EmptyNewGroups()
+        {
+            GroupData group = new GroupData("");
+            group.Header = "";
+            group.Footer = "";
+
+            app.Groups.CreateGroup(group);
+        }
+
     }
 }

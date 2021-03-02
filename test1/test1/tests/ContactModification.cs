@@ -7,20 +7,21 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
 
+
 namespace WebtestAddressbook
 {
     [TestFixture]
-    public class NewContact : Testbase
+    public class ContactModification : Testbase
     {
         [Test]
-        public void NewContacts()
+        public void ContactModifications()
         {
-            ContactData contact = new ContactData("John1");
-            contact.Lastname = "Doe1";
+            ContactData contact = new ContactData("Don");
+            contact.Lastname = "Digidon";
 
-            app.Contacts.CreateContact(contact);
+            app.Contacts.ModifyContact(contact);
 
-        }      
-       
+        }
+
     }
 }
