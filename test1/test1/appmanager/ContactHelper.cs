@@ -85,6 +85,7 @@ namespace WebtestAddressbook
         public ContactHelper DeleteContact()
         {
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
+            driver.SwitchTo().Alert().Accept();
             return this;
         }
         private void EditContact(int index)
