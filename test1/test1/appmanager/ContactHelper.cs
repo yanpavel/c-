@@ -30,7 +30,7 @@ namespace WebtestAddressbook
 
         public ContactHelper ModifyContact(ContactData contact)
         {
-            SelectContact();
+            SelectContact(1);
             EditContact(3);
             FillContactForm(contact);
             UpdateContact();
@@ -47,7 +47,7 @@ namespace WebtestAddressbook
 
         public ContactHelper RemoveContact()
         {
-            SelectContact();
+            SelectContact(1);
             DeleteContact();
           
             return this;
@@ -76,9 +76,9 @@ namespace WebtestAddressbook
             driver.FindElement(By.LinkText("add new")).Click();
             return this;
         }
-        public ContactHelper SelectContact()
+        public ContactHelper SelectContact(int index)
         {
-           driver.FindElement(By.Id("9")).Click();
+           driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
            return this;
         }
 
