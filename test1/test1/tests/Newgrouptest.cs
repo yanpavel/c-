@@ -11,7 +11,7 @@ using OpenQA.Selenium.Support.UI;
 namespace WebtestAddressbook
 {
     [TestFixture]
-    public class NewGroup : Testbase
+    public class NewGroup : AuthTestBase
     {
        
         [Test]

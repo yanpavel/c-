@@ -11,7 +11,7 @@ using OpenQA.Selenium.Support.UI;
 namespace WebtestAddressbook
 {
     [TestFixture]
-    public class ContactModification : Testbase
+    public class ContactModification : AuthTestBase
     {
         [Test]
         public void ContactModifications()
@@ -19,9 +19,14 @@ namespace WebtestAddressbook
             ContactData contact = new ContactData("Don");
             contact.Lastname = "Digidon";
 
+            if ((app.Contacts.SelectContact() is false))
+            {
+                app.Contacts.CreateContact(contact);
+            }            
             app.Contacts.ModifyContact(contact);
-
+            Assert.IsFalse(app.Contacts.SelectContact());
         }
+
 
     }
 }

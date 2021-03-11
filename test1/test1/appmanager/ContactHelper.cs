@@ -12,8 +12,7 @@ namespace WebtestAddressbook
 {
    public class ContactHelper : HelperBase
     {
-        
-      
+        protected ContactData firstname;
 
         public ContactHelper(ApplicationManager manager) : base(manager)
         {
@@ -21,20 +20,22 @@ namespace WebtestAddressbook
 
         public ContactHelper CreateContact(ContactData contact)
         {
+            manager.Navigator.OpenHomePage();
+
             GoToAddNew();
             FillContactForm(contact);
             SubmitContact();
-            manager.Navigator.GoToHomePage();
+            manager.Navigator.OpenHomePage();
             return this;
         }
 
         public ContactHelper ModifyContact(ContactData contact)
         {
             SelectContact(1);
-            EditContact(3);
+            EditContact(1);
             FillContactForm(contact);
             UpdateContact();
-            manager.Navigator.GoToHomePage();
+            manager.Navigator.OpenHomePage();
             return this;
         }
 
@@ -47,6 +48,8 @@ namespace WebtestAddressbook
 
         public ContactHelper RemoveContact()
         {
+            manager.Navigator.OpenHomePage();
+
             SelectContact(1);
             DeleteContact();
           
@@ -63,12 +66,8 @@ namespace WebtestAddressbook
 
         public ContactHelper FillContactForm(ContactData contact)
         {
-            driver.FindElement(By.Name("firstname")).Click();
-            driver.FindElement(By.Name("firstname")).Clear();
-            driver.FindElement(By.Name("firstname")).SendKeys(contact.Firstname);
-            driver.FindElement(By.Name("lastname")).Click();
-            driver.FindElement(By.Name("lastname")).Clear();
-            driver.FindElement(By.Name("lastname")).SendKeys(contact.Lastname);
+            Type(By.Name("firstname"), contact.Firstname);
+            Type(By.Name("lastname"), contact.Lastname);
             return this;
         }
         public ContactHelper GoToAddNew()
@@ -91,6 +90,11 @@ namespace WebtestAddressbook
         private void EditContact(int index)
         {
             driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + index + "]")).Click();
+        }
+        
+        public bool SelectContact()
+        {
+            return IsElementPresent(By.XPath("//input[@role='checkbox']"));
         }
     }
 }

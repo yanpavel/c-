@@ -11,16 +11,21 @@ using OpenQA.Selenium.Support.UI;
 namespace WebtestAddressbook
 {
     [TestFixture]
-    public class GroupModification:Testbase
+    public class GroupModification:AuthTestBase
     {
         [Test]
         public void GroupModifications()
         {
             GroupData group = new GroupData("qq");
-            group.Header = "www";
-            group.Footer = "ee";
+            group.Header = null;
+            group.Footer = null;
 
+            if ((app.Groups.SelectGroup() is false))
+            {
+                app.Groups.CreateGroup(group);
+            }
             app.Groups.Modify(group);
+            Assert.IsFalse(app.Groups.SelectGroup());
         }
     }
 }

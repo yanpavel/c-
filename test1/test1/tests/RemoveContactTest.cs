@@ -10,12 +10,20 @@ using OpenQA.Selenium.Support.UI;
 namespace WebtestAddressbook
 {
     [TestFixture]
-    public class RemoveContactTest : Testbase
+    public class RemoveContactTest : AuthTestBase
     {
         [Test]
         public void RemoveContactTests()
         {
+            ContactData contact = new ContactData("Don");
+            contact.Lastname = "Digidon";
+
+            if ((app.Contacts.SelectContact() is false))
+            {
+                app.Contacts.CreateContact(contact);
+            }
             app.Contacts.RemoveContact();
+            Assert.IsFalse(app.Contacts.SelectContact());
         }
 
         
