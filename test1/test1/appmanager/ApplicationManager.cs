@@ -20,6 +20,7 @@ namespace WebtestAddressbook
         protected NavigationHelper navigator;
         protected GroupHelper groupHelper;
         protected ContactHelper contactHelper;
+        
 
         private static ThreadLocal<ApplicationManager>app = new ThreadLocal<ApplicationManager>();
 
@@ -30,8 +31,9 @@ namespace WebtestAddressbook
             loginHelper = new LoginHelper(this);
             navigator = new NavigationHelper(this, baseURL);
             groupHelper = new GroupHelper(this);
-            contactHelper = new ContactHelper(this);         
-         }
+            contactHelper = new ContactHelper(this);
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(3);
+        }
 
          ~ApplicationManager()
         {
