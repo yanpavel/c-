@@ -2,6 +2,7 @@
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
+using System.Collections.Generic;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
@@ -19,12 +20,20 @@ namespace WebtestAddressbook
             ContactData contact = new ContactData("Don");
             contact.Lastname = "Digidon";
 
-            if ((app.Contacts.SelectContact() is false))
-            {
-                app.Contacts.CreateContact(contact);
-            }            
+            List<ContactData> oldContacts = app.Contacts.GetContactList();
+
+            
             app.Contacts.ModifyContact(contact);
-            Assert.IsFalse(app.Contacts.SelectContact());
+            
+
+            List<ContactData> newContacts = app.Contacts.GetContactList();
+
+            oldContacts[0].Firstname = contact.Firstname;
+            oldContacts[0].Lastname = contact.Lastname;
+            oldContacts.Sort();
+            newContacts.Sort();
+            Assert.AreEqual(oldContacts, newContacts);
+            
         }
 
 

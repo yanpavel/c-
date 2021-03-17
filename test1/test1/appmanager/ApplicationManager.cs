@@ -34,7 +34,7 @@ namespace WebtestAddressbook
             contactHelper = new ContactHelper(this);
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(3);
         }
-
+    
          ~ApplicationManager()
         {
             try

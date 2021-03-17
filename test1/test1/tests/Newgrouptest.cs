@@ -2,6 +2,7 @@
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
+using System.Collections.Generic;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
@@ -21,7 +22,16 @@ namespace WebtestAddressbook
             group.Header = "bb";
             group.Footer = "cc";
                        
+            
+            List<GroupData> oldGroups = app.Groups.GetGroupList();
+
             app.Groups.CreateGroup(group);
+
+            List <GroupData> newGroups=app.Groups.GetGroupList();
+            oldGroups.Add(group);
+            oldGroups.Sort();
+            newGroups.Sort();
+            Assert.AreEqual(oldGroups, newGroups);
         }
         [Test]
         public void EmptyNewGroups()
@@ -30,8 +40,16 @@ namespace WebtestAddressbook
             group.Header = "";
             group.Footer = "";
 
+            List<GroupData> oldGroups = app.Groups.GetGroupList();
             app.Groups.CreateGroup(group);
-        }
 
+            List<GroupData> newGroups = app.Groups.GetGroupList();
+            oldGroups.Add(group);
+            oldGroups.Sort();
+            newGroups.Sort();
+            Assert.AreEqual(oldGroups, newGroups);
+        }
+        
+       
     }
 }

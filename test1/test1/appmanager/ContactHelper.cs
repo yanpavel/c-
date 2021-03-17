@@ -29,6 +29,18 @@ namespace WebtestAddressbook
             return this;
         }
 
+        public List<ContactData> GetContactList()
+        {
+            List<ContactData> contacts = new List<ContactData>();
+            manager.Navigator.OpenHomePage();
+            ICollection<IWebElement> contactelements = driver.FindElements(By.CssSelector("td.center"));
+            foreach (IWebElement contactelement in contactelements)
+            {
+                contacts.Add(new ContactData(contactelement.Text));
+            }
+            return contacts;
+        }
+
         public ContactHelper ModifyContact(ContactData contact)
         {
             SelectContact(1);
