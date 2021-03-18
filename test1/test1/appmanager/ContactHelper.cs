@@ -29,15 +29,15 @@ namespace WebtestAddressbook
             return this;
         }
 
-        public List<ContactData> GetContactList()
+        public List<ContactData> GetContactList(int index)
         {
             List<ContactData> contacts = new List<ContactData>();
             manager.Navigator.OpenHomePage();
-            ICollection<IWebElement> contactelements = driver.FindElements(By.CssSelector("td.center"));
-            foreach (IWebElement contactelement in contactelements)
-            {
-                contacts.Add(new ContactData(contactelement.Text));
-            }
+            IList<IWebElement> cells = driver.FindElements(By.Name("entry"))[index].FindElements(By.TagName("td"));
+            foreach (IWebElement element in cells)
+                {
+                    contacts.Add(new ContactData(element.Text));
+                }
             return contacts;
         }
 

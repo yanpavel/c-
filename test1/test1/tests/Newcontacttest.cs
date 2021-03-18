@@ -19,10 +19,10 @@ namespace WebtestAddressbook
             ContactData contact = new ContactData("John1");
             contact.Lastname = "Doe1";
 
-            List<ContactData> oldContacts = app.Contacts.GetContactList();
+            List<ContactData> oldContacts = app.Contacts.GetContactList(0);
             app.Contacts.CreateContact(contact);
 
-            List<ContactData> newContacts = app.Contacts.GetContactList();
+            List<ContactData> newContacts = app.Contacts.GetContactList(0);
             oldContacts.Add(contact);
             oldContacts.Sort();
             newContacts.Sort();

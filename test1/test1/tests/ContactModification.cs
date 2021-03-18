@@ -20,13 +20,13 @@ namespace WebtestAddressbook
             ContactData contact = new ContactData("Don");
             contact.Lastname = "Digidon";
 
-            List<ContactData> oldContacts = app.Contacts.GetContactList();
+            List<ContactData> oldContacts = app.Contacts.GetContactList(0);
 
             
             app.Contacts.ModifyContact(contact);
             
 
-            List<ContactData> newContacts = app.Contacts.GetContactList();
+            List<ContactData> newContacts = app.Contacts.GetContactList(0);
 
             oldContacts[0].Firstname = contact.Firstname;
             oldContacts[0].Lastname = contact.Lastname;
