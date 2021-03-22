@@ -32,7 +32,7 @@ namespace WebtestAddressbook
             oldContacts[0].Lastname = contact.Lastname;
             oldContacts.Sort();
             newContacts.Sort();
-            Assert.AreEqual(oldContacts, newContacts);
+            Assert.AreEqual(oldContacts, newContacts); 
             
         }
 

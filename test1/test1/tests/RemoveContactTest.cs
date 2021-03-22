@@ -16,7 +16,7 @@ namespace WebtestAddressbook
         [Test]
         public void RemoveContactTests()
         {
-            ContactData contact = new ContactData("Don");
+            ContactData contact = new ContactData("Don"); 
             contact.Lastname = "Digidon";
 
             List<ContactData> oldContacts = app.Contacts.GetContactList(0);

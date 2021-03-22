@@ -25,7 +25,7 @@ namespace WebtestAddressbook
 
         public bool Equals(ContactData other)
         {
-            if (Object.ReferenceEquals(other, null))
+            if (Object.ReferenceEquals(other, null)) 
             {
                 return false;
             }

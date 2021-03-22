@@ -81,7 +81,7 @@ namespace WebtestAddressbook
         public GroupHelper Groups
         {
             get
-            {
+            { 
                 return groupHelper;
             }
         }
