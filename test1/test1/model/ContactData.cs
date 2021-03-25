@@ -8,19 +8,18 @@ namespace WebtestAddressbook
 {
     public class ContactData : IEquatable <ContactData>, IComparable<ContactData>
     {
-        private string firstname;
-        private string lastname = "";
+        private string allPhones;
 
         public ContactData(string firstname)
         {
-            this.firstname = firstname;
+            Firstname = firstname;
         }
 
 
         public ContactData(string firstname, string lastname)
         {
-            this.firstname = firstname;
-            this.lastname = lastname;
+            Firstname = firstname;
+            Lastname = lastname;
         }
 
         public bool Equals(ContactData other)
@@ -44,7 +43,7 @@ namespace WebtestAddressbook
 
         public override string ToString()
         {
-            return "name=" + Firstname + " " + Lastname;
+            return "name=" + Lastname + " " + Firstname;
         }
 
         public int CompareTo(ContactData other)
@@ -60,30 +59,44 @@ namespace WebtestAddressbook
             }
             return Firstname.CompareTo(other.Firstname);
         }
-        public string Firstname
-        {
-            get
-            {
-                return firstname;
-            }
+        public string Firstname { get; set; }
 
+        public string Lastname { get; set; }
+
+        public string ID { get; set; }
+
+        public string Address { get; set; }
+
+        public string HomePhone { get; set; }
+
+        public string MobilePhone { get; set; }
+
+        public string WorkPhone { get; set; }
+        public string AllPhones { 
+            get 
+            {
+                if (allPhones != null)
+                {
+                    return allPhones;
+                }
+                else
+                {
+                    return Cleanup(HomePhone) + Cleanup(WorkPhone) + Cleanup(MobilePhone).Trim();
+                }
+            }
             set
             {
-                firstname = value;
-            }
-        }
+                allPhones = value;
+            }    
+                }
 
-        public string Lastname
+        private string Cleanup(string phone)
         {
-            get
+            if (phone == null || phone == "")
             {
-                return lastname;
+                return "";
             }
-
-            set
-            {
-                lastname = value;
-            }
+            return phone.Replace (" ", ""). Replace("-","").Replace("(", "").Replace(")", "") + "\r\n";
         }
     }
 

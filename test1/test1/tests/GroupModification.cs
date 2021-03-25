@@ -22,16 +22,23 @@ namespace WebtestAddressbook
             newData.Footer = null;
 
             List<GroupData> oldGroups = app.Groups.GetGroupList();
-
+            GroupData oldData = oldGroups[0];
          
-            app.Groups.Modify(1 , newData);
+            app.Groups.Modify(0 , newData);
 
             List<GroupData> newGroups = app.Groups.GetGroupList();
             oldGroups[0].Name = newData.Name;
             oldGroups.Sort();
             newGroups.Sort();
             Assert.AreEqual(oldGroups, newGroups);
+
+            foreach (GroupData group in newGroups)
+            {
+                if (group.ID == oldData.ID) {
+                    Assert.AreEqual(group.Name, newData.Name);
+                }
             
+            }
         }
     }
 }
