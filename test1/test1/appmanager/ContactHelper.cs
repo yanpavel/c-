@@ -27,25 +27,25 @@ namespace WebtestAddressbook
             manager.Navigator.OpenHomePage();
             return this;
         }
-        
-       
+
+        private List<ContactData> contactCache = null;
 
         public List<ContactData> GetContactList()
         {
-
-                List < ContactData > contacts = new List<ContactData>();
+            if (contactCache == null)
+            {
+                contactCache = new List<ContactData>();
                 manager.Navigator.OpenHomePage();
                 ICollection<IWebElement> elements = driver.FindElements(By.Name("entry"));
-            foreach (IWebElement element in elements)
-            {
-                IList<IWebElement> cells = driver.FindElements(By.TagName("td"));                
-                string lastname = cells[1].Text; 
-                string firstname = cells[2].Text;
-                
-                
-                contacts.Add(new ContactData(lastname, firstname));
-                    }
-            return contacts;
+                foreach (IWebElement element in elements)
+                {
+                    IList<IWebElement> cells = driver.FindElements(By.TagName("td"));
+                    string lastname = cells[1].Text;
+                    string firstname = cells[2].Text;
+                    contactCache.Add(new ContactData(lastname, firstname));
+                }
+            }              
+            return new List<ContactData>(contactCache);
         }
 
         public ContactHelper ModifyContact(ContactData contact)
@@ -61,6 +61,7 @@ namespace WebtestAddressbook
         public ContactHelper UpdateContact()
         {
             driver.FindElement(By.XPath("(//input[@name='update'])[2]")).Click();
+            contactCache = null;
             return this;
         }
 
@@ -80,7 +81,7 @@ namespace WebtestAddressbook
         public ContactHelper SubmitContact()
         {
             driver.FindElement(By.XPath("(//input[@name='submit'])[2]")).Click();
-            
+            contactCache = null;
             return this;
         }
 
@@ -105,7 +106,8 @@ namespace WebtestAddressbook
         {
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
             driver.SwitchTo().Alert().Accept();
-            
+            contactCache = null;
+
             return this;
         }
         private void EditContact(int index)
