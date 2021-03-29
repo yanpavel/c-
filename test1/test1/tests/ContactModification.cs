@@ -17,19 +17,20 @@ namespace WebtestAddressbook
         [Test]
         public void ContactModifications()
         {
-            ContactData contact = new ContactData("Don");
-            contact.Lastname = "Digidon";
+            ContactData contact = new ContactData("Doe1");
+            contact.Lastname = "John1";
 
-            List<ContactData> oldContacts = app.Contacts.GetContactList(0);
+            List<ContactData> oldContacts = app.Contacts.GetContactList();
 
             
             app.Contacts.ModifyContact(contact);
             
 
-            List<ContactData> newContacts = app.Contacts.GetContactList(0);
+            List<ContactData> newContacts = app.Contacts.GetContactList();
 
-            oldContacts[0].Firstname = contact.Firstname;
+            
             oldContacts[0].Lastname = contact.Lastname;
+            oldContacts[0].Firstname = contact.Firstname;
             oldContacts.Sort();
             newContacts.Sort();
             Assert.AreEqual(oldContacts, newContacts); 

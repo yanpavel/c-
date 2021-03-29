@@ -19,12 +19,12 @@ namespace WebtestAddressbook
             ContactData contact = new ContactData("John1"); 
             contact.Lastname = "Doe1";
 
-            List<ContactData> oldContacts = app.Contacts.GetContactList(0);
+            List<ContactData> oldContacts = app.Contacts.GetContactList();
 
           
             app.Contacts.RemoveContact();
 
-            List<ContactData> newContacts = app.Contacts.GetContactList(0);
+            List<ContactData> newContacts = app.Contacts.GetContactList();
 
             oldContacts.RemoveAt(1);
 

@@ -30,7 +30,7 @@ namespace WebtestAddressbook
         
        
 
-        public List<ContactData> GetContactList(int index)
+        public List<ContactData> GetContactList()
         {
 
                 List < ContactData > contacts = new List<ContactData>();
@@ -38,22 +38,11 @@ namespace WebtestAddressbook
                 ICollection<IWebElement> elements = driver.FindElements(By.Name("entry"));
             foreach (IWebElement element in elements)
             {
-                IList<IWebElement> cells = driver.FindElements(By.Name("td"));
-                int i = 0;
-                string firstname = "";
-                string lastname = "";
-                foreach (IWebElement cell in cells)
-                {
-                    i++;
-                    if (i == 2)
-                    {
-                        lastname = cell.Text;
-                    }
-                    else if (i == 3)
-                    {
-                        firstname = cell.Text;
-                    }
-                }
+                IList<IWebElement> cells = driver.FindElements(By.TagName("td"));                
+                string lastname = cells[1].Text; 
+                string firstname = cells[2].Text;
+                
+                
                 contacts.Add(new ContactData(lastname, firstname));
                     }
             return contacts;
@@ -121,7 +110,7 @@ namespace WebtestAddressbook
         }
         private void EditContact(int index)
         {
-            driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + index + "]")).Click();
+            driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + index+1 + "]")).Click();
             
         }
         

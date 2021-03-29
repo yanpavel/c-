@@ -16,13 +16,13 @@ namespace WebtestAddressbook
         [Test]
         public void NewContacts()
         {
-            ContactData contact = new ContactData("John1"); 
-            contact.Lastname = "Doe1";
+            ContactData contact = new ContactData("Doe1"); 
+            contact.Lastname = "John1";
 
-            List<ContactData> oldContacts = app.Contacts.GetContactList(0);
+            List<ContactData> oldContacts = app.Contacts.GetContactList();
             app.Contacts.CreateContact(contact);
 
-            List<ContactData> newContacts = app.Contacts.GetContactList(0);
+            List<ContactData> newContacts = app.Contacts.GetContactList();
             oldContacts.Add(contact);
             oldContacts.Sort();
             newContacts.Sort();
