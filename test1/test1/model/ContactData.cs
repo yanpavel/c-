@@ -34,7 +34,7 @@ namespace WebtestAddressbook
                 return true;
             }
 
-            return FirstName + LastName == other.LastName + other.FirstName;
+            return FirstName + LastName == other.FirstName + other.LastName;
         }
         public override int GetHashCode()
         {

@@ -150,13 +150,13 @@ namespace WebtestAddressbook
             manager.Navigator.OpenHomePage();
             InitContactView(0);
             IList<IWebElement> names = driver.FindElements(By.Id("content"))[v].FindElements(By.TagName("b"));
-            IList<IWebElement> content = driver.FindElements(By.Id("content"))[v].FindElements(By.TagName("b"));
+            IList<IWebElement> content = driver.FindElements(By.Id("content"))[v].FindElements(By.TagName("br"));
             string name = names[0].Text;
-            string address = content[0].Text;
-            string h = content[1].Text;
-            string m = content[2].Text;
-            string w = content[3].Text;
-            string email = content[4].Text;
+            string address = content[1].Text;
+            string h = content[2].Text;
+            string m = content[3].Text;
+            string w = content[4].Text;
+            string email = content[5].Text;
 
             return new ContactData(name)
             {
