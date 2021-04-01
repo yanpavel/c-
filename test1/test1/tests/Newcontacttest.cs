@@ -17,7 +17,7 @@ namespace WebtestAddressbook
         public void NewContacts()
         {
             ContactData contact = new ContactData("Doe1"); 
-            contact.Lastname = "John1";
+            contact.LastName = "John1";
 
             List<ContactData> oldContacts = app.Contacts.GetContactList();
             app.Contacts.CreateContact(contact);

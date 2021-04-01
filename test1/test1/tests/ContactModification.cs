@@ -18,7 +18,7 @@ namespace WebtestAddressbook
         public void ContactModifications()
         {
             ContactData contact = new ContactData("Doe1");
-            contact.Lastname = "John1";
+            contact.LastName = "John1";
 
             List<ContactData> oldContacts = app.Contacts.GetContactList();
 
@@ -29,8 +29,8 @@ namespace WebtestAddressbook
             List<ContactData> newContacts = app.Contacts.GetContactList();
 
             
-            oldContacts[0].Lastname = contact.Lastname;
-            oldContacts[0].Firstname = contact.Firstname;
+            oldContacts[0].LastName = contact.LastName;
+            oldContacts[0].FirstName = contact.FirstName;
             oldContacts.Sort();
             newContacts.Sort();
             Assert.AreEqual(oldContacts, newContacts); 

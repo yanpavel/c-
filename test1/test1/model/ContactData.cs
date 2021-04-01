@@ -9,17 +9,18 @@ namespace WebtestAddressbook
     public class ContactData : IEquatable <ContactData>, IComparable<ContactData>
     {
         private string allPhones;
+        private string name;
 
-        public ContactData(string firstname)
+        public ContactData(string firstName)
         {
-            Firstname = firstname;
+            FirstName = firstName;
         }
 
 
-        public ContactData(string firstname, string lastname)
+        public ContactData(string firstName, string lastName)
         {
-            Firstname = firstname;
-            Lastname = lastname;
+            FirstName = firstName;
+            LastName = lastName;
         }
 
         public bool Equals(ContactData other)
@@ -33,17 +34,17 @@ namespace WebtestAddressbook
                 return true;
             }
 
-            return Firstname + Lastname == other.Firstname + other.Lastname;
+            return FirstName + LastName == other.LastName + other.FirstName;
         }
         public override int GetHashCode()
         {
-            return Firstname.GetHashCode() + Lastname.GetHashCode();
+            return FirstName.GetHashCode() + LastName.GetHashCode();
 
         }
 
         public override string ToString()
         {
-            return "name=" + Firstname + " " + Lastname;
+            return "name=" + FirstName + " " + LastName;
         }
 
         public int CompareTo(ContactData other)
@@ -53,15 +54,15 @@ namespace WebtestAddressbook
                 return 1;
             }
             // если firstname равно, то сравниваем lastname
-            if (Firstname.CompareTo(other.Firstname) == 0)
+            if (FirstName.CompareTo(other.FirstName) == 0)
             {
-                return Lastname.CompareTo(other.Lastname);
+                return LastName.CompareTo(other.LastName);
             }
-            return Firstname.CompareTo(other.Firstname);
+            return FirstName.CompareTo(other.FirstName);
         }
-        public string Firstname { get; set; }
+        public string FirstName { get; set; }
 
-        public string Lastname { get; set; }
+        public string LastName { get; set; }
 
         public string ID { get; set; }
 
@@ -72,6 +73,8 @@ namespace WebtestAddressbook
         public string MobilePhone { get; set; }
 
         public string WorkPhone { get; set; }
+
+        public string Email { get; set; }
         public string AllPhones { 
             get 
             {
@@ -89,7 +92,33 @@ namespace WebtestAddressbook
                 allPhones = value;
             }    
                 }
+        public string Names
+        {
+            get
+            {
+                if (name != null)
+                {
+                    return name;
+                }
+                else
+                {
+                    return CleanupNames(FirstName) + CleanupNames(LastName).Trim();
+                }
+            }
+            set
+            {
+                allPhones = value;
+            }
+        }
 
+        private string CleanupNames(string names)
+        {
+            if (names == null || names == "")
+            {
+                return "";
+            }
+            return names.Replace(" ", "");
+        }
         private string Cleanup(string phone)
         {
             if (phone == null || phone == "")

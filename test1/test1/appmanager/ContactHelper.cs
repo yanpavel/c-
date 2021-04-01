@@ -48,6 +48,8 @@ namespace WebtestAddressbook
             return new List<ContactData>(contactCache);
         }
 
+   
+
         public ContactHelper ModifyContact(ContactData contact)
         {
             SelectContact(0);
@@ -87,8 +89,8 @@ namespace WebtestAddressbook
 
         public ContactHelper FillContactForm(ContactData contact)
         {
-            Type(By.Name("firstname"), contact.Firstname);
-            Type(By.Name("lastname"), contact.Lastname);
+            Type(By.Name("firstname"), contact.FirstName);
+            Type(By.Name("lastname"), contact.LastName);
             return this;
         }
         public ContactHelper GoToAddNew()
@@ -125,28 +127,10 @@ namespace WebtestAddressbook
         public ContactData GetContactInformationFromEditForm(int index)
         {
             manager.Navigator.OpenHomePage();
-            IList<IWebElement> cells = driver.FindElements(By.Name("entry"))[index].FindElements(By.TagName("td"));
-            string lastName = cells[1].Text;
-            string firstName = cells[2].Text;
-            string address = cells[3].Text;
-            string allPhones = cells[5].Text;
-
-            return new ContactData(firstName, lastName)
-            {
-                Address = address,
-                AllPhones = allPhones
-
-            };
-        }
-
-        public ContactData GetContactInformationFromTable(int index)
-        {
-            manager.Navigator.OpenHomePage();
             InitContactModification(0);
-            string firstName = driver.FindElement(By.Name("firstname")).GetAttribute("value");
             string lastName = driver.FindElement(By.Name("lastname")).GetAttribute("value");
+            string firstName = driver.FindElement(By.Name("firstname")).GetAttribute("value");
             string address = driver.FindElement(By.Name("address")).GetAttribute("value");
-
             string homePhone = driver.FindElement(By.Name("home")).GetAttribute("value");
             string mobilePhone = driver.FindElement(By.Name("mobile")).GetAttribute("value");
             string workHome = driver.FindElement(By.Name("work")).GetAttribute("value");
@@ -157,6 +141,55 @@ namespace WebtestAddressbook
                 HomePhone = homePhone,
                 MobilePhone = mobilePhone,
                 WorkPhone = workHome
+
+            };
+        }
+
+        public ContactData GetContactInformationFromViewForm(int v)
+        {
+            manager.Navigator.OpenHomePage();
+            InitContactView(0);
+            IList<IWebElement> names = driver.FindElements(By.Id("content"))[v].FindElements(By.TagName("b"));
+            IList<IWebElement> content = driver.FindElements(By.Id("content"))[v].FindElements(By.TagName("b"));
+            string name = names[0].Text;
+            string address = content[0].Text;
+            string h = content[1].Text;
+            string m = content[2].Text;
+            string w = content[3].Text;
+            string email = content[4].Text;
+
+            return new ContactData(name)
+            {
+                Address = address,
+                HomePhone = h,
+                MobilePhone = m,
+                WorkPhone = w,
+                Email = email
+
+            };
+        }
+
+        private void InitContactView(int index)
+        {
+            driver.FindElements(By.Name("entry"))[index]
+                .FindElements(By.TagName("td"))[6]
+                .FindElement(By.TagName("a")).Click();
+        }
+
+        public ContactData GetContactInformationFromTable(int index)
+        {
+            manager.Navigator.OpenHomePage();
+            IList<IWebElement> cells = driver.FindElements(By.Name("entry"))[index].FindElements(By.TagName("td"));
+            string firstName = cells[1].Text;
+            string lastName = cells[2].Text;
+            string address = cells[3].Text;
+            string allPhones = cells[5].Text;
+            
+
+            return new ContactData(firstName, lastName)
+            {
+                Address = address,
+                AllPhones = allPhones
 
             };
         }
