@@ -8,8 +8,9 @@ namespace WebtestAddressbook
 {
     public class ContactData : IEquatable <ContactData>, IComparable<ContactData>
     {
-        private string allPhones;
-        private string name;
+        private string allPhones;        
+        private string allEmails;
+        private string allInfosInProfile;
 
         public ContactData(string firstName)
         {
@@ -34,7 +35,7 @@ namespace WebtestAddressbook
                 return true;
             }
 
-            return FirstName + LastName == other.FirstName + other.LastName;
+            return FirstName + LastName == other.LastName + other.FirstName;
         }
         public override int GetHashCode()
         {
@@ -75,6 +76,12 @@ namespace WebtestAddressbook
         public string WorkPhone { get; set; }
 
         public string Email { get; set; }
+
+        public string Email1 { get; set; }
+
+        public string Email2 { get; set; }
+
+        public string Email3 { get; set; }
         public string AllPhones { 
             get 
             {
@@ -84,7 +91,7 @@ namespace WebtestAddressbook
                 }
                 else
                 {
-                    return Cleanup(HomePhone) + Cleanup(WorkPhone) + Cleanup(MobilePhone).Trim();
+                    return Cleanup(HomePhone) + Cleanup(MobilePhone) + Cleanup(WorkPhone).Trim();
                 }
             }
             set
@@ -92,33 +99,47 @@ namespace WebtestAddressbook
                 allPhones = value;
             }    
                 }
-        public string Names
+        public string AllEmails
         {
             get
             {
-                if (name != null)
+                if (allEmails != null)
                 {
-                    return name;
+                    return allEmails;
                 }
                 else
                 {
-                    return CleanupNames(FirstName) + CleanupNames(LastName).Trim();
+                    return CleanupEmail(Email1) + CleanupEmail(Email2) + CleanupEmail(Email3).Trim();
                 }
             }
             set
             {
-                allPhones = value;
+                allEmails = value;
             }
         }
 
-        private string CleanupNames(string names)
+
+
+        public string AllInfosInProfile
         {
-            if (names == null || names == "")
+            get
             {
-                return "";
+                if (allInfosInProfile != null)
+                {
+                    return allInfosInProfile;
+                }
+                else
+                {
+                    return Cleanup(AllInfosInProfile);
+                }
             }
-            return names.Replace(" ", "");
+            set
+            {
+                allInfosInProfile = value;
+            }
         }
+
+  
         private string Cleanup(string phone)
         {
             if (phone == null || phone == "")
@@ -126,6 +147,15 @@ namespace WebtestAddressbook
                 return "";
             }
             return phone.Replace (" ", ""). Replace("-","").Replace("(", "").Replace(")", "") + "\r\n";
+        }
+
+        private string CleanupEmail(string email)
+        {
+            if (email == null || email == "")
+            {
+                return "";
+            }
+            return email.Replace(" ", "").Replace("-", "").Replace("(", "").Replace(")", "") + "\r\n";
         }
     }
 

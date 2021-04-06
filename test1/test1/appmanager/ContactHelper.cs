@@ -134,39 +134,62 @@ namespace WebtestAddressbook
             string homePhone = driver.FindElement(By.Name("home")).GetAttribute("value");
             string mobilePhone = driver.FindElement(By.Name("mobile")).GetAttribute("value");
             string workHome = driver.FindElement(By.Name("work")).GetAttribute("value");
+            string email1 = driver.FindElement(By.Name("email")).GetAttribute("value");
+            string email2 = driver.FindElement(By.Name("email2")).GetAttribute("value");
+            string email3 = driver.FindElement(By.Name("email3")).GetAttribute("value");
 
             return new ContactData(firstName, lastName)
             {
                 Address = address,
                 HomePhone = homePhone,
                 MobilePhone = mobilePhone,
-                WorkPhone = workHome
+                WorkPhone = workHome,
+                Email1 = email1,
+                Email2 = email2,
+                Email3= email3
+                
 
             };
+           
         }
 
-        public ContactData GetContactInformationFromViewForm(int v)
+        public string GetAllFieldsContactInformationFromEditForm(int index)
+        {
+            manager.Navigator.OpenHomePage();
+            InitContactModification(0);
+            string firstName = driver.FindElement(By.Name("firstname")).GetAttribute("value");
+            string middlename = driver.FindElement(By.Name("middlename")).GetAttribute("value");
+            string lastName = driver.FindElement(By.Name("lastname")).GetAttribute("value");
+            string nickname = driver.FindElement(By.Name("nickname")).GetAttribute("value");
+            string company = driver.FindElement(By.Name("company")).GetAttribute("value");
+            string title = driver.FindElement(By.Name("title")).GetAttribute("value");
+            string address = driver.FindElement(By.Name("address")).Text;
+
+            string homePhone = driver.FindElement(By.Name("home")).GetAttribute("value");
+            string mobilePhone = driver.FindElement(By.Name("mobile")).GetAttribute("value");
+            string workPhone = driver.FindElement(By.Name("work")).GetAttribute("value");
+            string fax = driver.FindElement(By.Name("fax")).GetAttribute("value");
+
+            string email = driver.FindElement(By.Name("email")).GetAttribute("value");
+            string email2 = driver.FindElement(By.Name("email2")).GetAttribute("value");
+            string email3 = driver.FindElement(By.Name("email3")).GetAttribute("value");
+            string homepage = driver.FindElement(By.Name("homepage")).GetAttribute("value");
+
+            string fullname = firstName + " " + middlename + " " + lastName;
+
+           
+            return fullname + "\r\n" + nickname + "\r\n" + title + "\r\n" + company + "\r\n" + address + "\r\n\r\n" + "H: " + homePhone
+                + "\r\n" + "M: " + mobilePhone + "\r\n" + "W: " + workPhone + "\r\n" + "F: " + fax
+                + "\r\n\r\n" + email + "\r\n" + email2 + "\r\n" + email3 + "\r\n" + "Homepage:" + "\r\n" + homepage;
+          
+        }
+        public string GetContactInformationFromViewForm(int v)
         {
             manager.Navigator.OpenHomePage();
             InitContactView(0);
-            IList<IWebElement> names = driver.FindElements(By.Id("content"))[v].FindElements(By.TagName("b"));
-            IList<IWebElement> content = driver.FindElements(By.Id("content"))[v].FindElements(By.TagName("br"));
-            string name = names[0].Text;
-            string address = content[1].Text;
-            string h = content[2].Text;
-            string m = content[3].Text;
-            string w = content[4].Text;
-            string email = content[5].Text;
-
-            return new ContactData(name)
-            {
-                Address = address,
-                HomePhone = h,
-                MobilePhone = m,
-                WorkPhone = w,
-                Email = email
-
-            };
+            
+            string AllInfosInProfile = driver.FindElement(By.Id("content")).Text;            
+            return AllInfosInProfile;
         }
 
         private void InitContactView(int index)
@@ -183,13 +206,15 @@ namespace WebtestAddressbook
             string firstName = cells[1].Text;
             string lastName = cells[2].Text;
             string address = cells[3].Text;
+            string allEmails = cells[4].Text;
             string allPhones = cells[5].Text;
-            
+
 
             return new ContactData(firstName, lastName)
             {
                 Address = address,
-                AllPhones = allPhones
+                AllPhones = allPhones,
+                AllEmails = allEmails
 
             };
         }

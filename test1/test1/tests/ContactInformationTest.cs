@@ -26,13 +26,11 @@ namespace WebtestAddressbook
         [Test]
         public void TestContactViewInformation()
         {
-            ContactData fromTable = app.Contacts.GetContactInformationFromTable(0);
-            ContactData fromForm = app.Contacts.GetContactInformationFromViewForm(0);
 
-            //verification
-            Assert.AreEqual(fromTable, fromForm);
-            Assert.AreEqual(fromTable.Address, fromForm.Address);
-            Assert.AreEqual(fromTable.AllPhones, fromForm.AllPhones);
+            string AllFieldsfromForm = app.Contacts.GetAllFieldsContactInformationFromEditForm(0);
+            //ContactDate fromProfile = app.Contacts.GetContactInformationFromProfile(0);
+            System.Console.Out.Write(app.Contacts.GetContactInformationFromViewForm(0));
+            Assert.AreEqual(AllFieldsfromForm.ToString(), app.Contacts.GetContactInformationFromViewForm(0));
 
         }
     }
