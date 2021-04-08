@@ -8,8 +8,11 @@ namespace WebtestAddressbook
 {
     public class GroupData : IEquatable <GroupData>, IComparable <GroupData>
     {
-       
-       public GroupData(string name) 
+
+        public GroupData()
+        {
+        }
+        public GroupData(string name) 
         {
             Name = name;
         }
@@ -49,7 +52,7 @@ namespace WebtestAddressbook
         public GroupData(string name, string header, string footer)
         {
             Name = name;
-           Header = header;
+            Header = header;
             Footer = footer;
         }
 
