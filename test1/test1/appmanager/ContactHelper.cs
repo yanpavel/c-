@@ -157,30 +157,105 @@ namespace WebtestAddressbook
         {
             manager.Navigator.OpenHomePage();
             InitContactModification(0);
-            string firstName = driver.FindElement(By.Name("firstname")).GetAttribute("value");
-            string middlename = driver.FindElement(By.Name("middlename")).GetAttribute("value");
+            string firstName = driver.FindElement(By.Name("firstname")).GetAttribute("value") ;
+            if (firstName == "")
+            { firstName = "";
+                return firstName;
+            }
+            string middleName = driver.FindElement(By.Name("middlename")).GetAttribute("value");
+            if (middleName == "")
+            {
+                middleName = "";
+                return middleName;
+            }
             string lastName = driver.FindElement(By.Name("lastname")).GetAttribute("value");
-            string nickname = driver.FindElement(By.Name("nickname")).GetAttribute("value");
-            string company = driver.FindElement(By.Name("company")).GetAttribute("value");
-            string title = driver.FindElement(By.Name("title")).GetAttribute("value");
-            string address = driver.FindElement(By.Name("address")).Text;
+            if (lastName == "")
+            {
+                lastName = "";
+                return lastName;
+            }
+            string nickname = driver.FindElement(By.Name("nickname")).GetAttribute("value") + "\r\n";
+            if (nickname == "")
+            {
+                nickname = "";
+                return nickname;
+            }
+            string company = driver.FindElement(By.Name("company")).GetAttribute("value") + "\r\n";
+            if (company == "")
+            {
+                company = "";
+                return company;
+            }
+            string title = driver.FindElement(By.Name("title")).GetAttribute("value") + "\r\n";
+            if (title == "")
+            {
+                title = "";
+                return title;
+            }
+            string address = driver.FindElement(By.Name("address")).Text + "\r\n";
+            if (address == "")
+            {
+                address = "";
+                return address;
+            }
 
-            string homePhone = driver.FindElement(By.Name("home")).GetAttribute("value");
-            string mobilePhone = driver.FindElement(By.Name("mobile")).GetAttribute("value");
-            string workPhone = driver.FindElement(By.Name("work")).GetAttribute("value");
-            string fax = driver.FindElement(By.Name("fax")).GetAttribute("value");
+            string homePhone = driver.FindElement(By.Name("home")).GetAttribute("value") + "\r\n";
+            if (homePhone == "")
+            {
+                homePhone = "";
+                return homePhone;
+            }
+            string mobilePhone = driver.FindElement(By.Name("mobile")).GetAttribute("value") + "\r\n";
+            if (mobilePhone == "")
+            {
+                mobilePhone = "";
+                return mobilePhone;
+            }
+            string workPhone = driver.FindElement(By.Name("work")).GetAttribute("value") + "\r\n";
+            if (workPhone == "")
+            {
+                workPhone = "";
+                return workPhone;
+            }
+            string fax = driver.FindElement(By.Name("fax")).GetAttribute("value") + "\r\n";
+            if (fax == "")
+            {
+                fax = "";
+                return fax;
+            }
 
-            string email = driver.FindElement(By.Name("email")).GetAttribute("value");
-            string email2 = driver.FindElement(By.Name("email2")).GetAttribute("value");
-            string email3 = driver.FindElement(By.Name("email3")).GetAttribute("value");
+            string email = driver.FindElement(By.Name("email")).GetAttribute("value") + "\r\n";
+            if (email == "")
+            {
+                email = "";
+                return email;
+            }
+            string email2 = driver.FindElement(By.Name("email2")).GetAttribute("value") + "\r\n";
+            if (email2 == "")
+            {
+                email2 = "";
+                return email2;
+            }
+            string email3 = driver.FindElement(By.Name("email3")).GetAttribute("value") + "\r\n";
+            if (email3 == "")
+            {
+                email3 = "";
+                return email3;
+            }
             string homepage = driver.FindElement(By.Name("homepage")).GetAttribute("value");
+            if (homepage == "")
+            {
+                homepage = "";
+                return homepage;
+            }
 
-            string fullname = firstName + " " + middlename + " " + lastName;
+            string fullname = firstName + " " + middleName + " " + lastName;
 
+            
            
-            return fullname + "\r\n" + nickname + "\r\n" + title + "\r\n" + company + "\r\n" + address + "\r\n\r\n" + "H: " + homePhone
-                + "\r\n" + "M: " + mobilePhone + "\r\n" + "W: " + workPhone + "\r\n" + "F: " + fax
-                + "\r\n\r\n" + email + "\r\n" + email2 + "\r\n" + email3 + "\r\n" + "Homepage:" + "\r\n" + homepage;
+            return fullname + "\r\n" + nickname  + title  + company  + address + "\r\n" + "H: " + homePhone
+                + "M: " + mobilePhone  + "W: " + workPhone  + "F: " + fax
+                + "\r\n" + email  + email2  + email3  + "Homepage:" + "\r\n" + homepage;
           
         }
         public string GetContactInformationFromViewForm(int v)
